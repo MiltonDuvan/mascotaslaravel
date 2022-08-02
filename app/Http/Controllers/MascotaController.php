@@ -70,10 +70,10 @@ class MascotaController extends Controller
      * @param  \App\Models\Mascota  $mascota
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mascota $mascota)
+    public function edit($id)
     {
-        $mascotasvar = Mascota::all(); 
-        return view('mascota.edit',compact('mascota','mascotasvar')); 
+        $mascotavar = Mascota::findOrFail($id); 
+        return view('mascota.edit',compact('mascotavar')); 
     }
 
     /**
@@ -83,17 +83,24 @@ class MascotaController extends Controller
      * @param  \App\Models\Mascota  $mascota
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mascota $mascota)
+    public function update(Request $request, $id)
     {
     
-      
+        $validar = Validator::make ($request->all(),[
+            'nombre_mascota'=>'required',
+            'raza_mascota'=>'required',
+            'categoria_mascota'=>'required',
+            'genero_mascota'=>'required'
+        ]);
+        if(!$validar->fails()){
+        $mascotasvar=Masctota::find($id);
+        $mascotasvar-> nombre_mascota= $request->nombre_mascota;
+        $mascotasvar-> raza_mascota= $request->raza_mascota;
+        $mascotasvar-> categoria_mascota= $request->categoria_mascota;
+        $mascotasvar-> genero_mascota= $request->genero_mascota;
+        $mascotasvar->save();
 
-        $mascotavar-> nombre_mascota= $request->get('nombre_mascota');
-        $mascotavar-> raza_mascota= $request->get('raza_mascota');
-        $mascotavar-> categoria_mascota= $request->get('categoria_mascota');
-        $mascotavar-> genero_mascota= $request->get('genero_mascota');
-        $mascotavar->save();
-
+        }
         return redirect('mascotas');
     }
 
@@ -103,7 +110,7 @@ class MascotaController extends Controller
      * @param  \App\Models\Mascota  $mascota
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mascota $id)
+    public function destroy($id)
     {
         $mascotasvar=Mascota::find($id);
         $mascotasvar->delete();
