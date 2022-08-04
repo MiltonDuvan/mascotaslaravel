@@ -11,6 +11,7 @@
     <section class="" style="display: flex; justify-content:space-between"> 
     <section class=""> 
         <a class="btn btn-primary" href="/mascotas/create">Mascota nueva</a>
+        <a class="btn btn-primary" href="/mascotas/pdf">GeneradorPDF</a>
     </section>
 
 
@@ -60,6 +61,7 @@
         
         @endforeach
       </tbody>
+      </table>
     </section>
   </section>
 </section>

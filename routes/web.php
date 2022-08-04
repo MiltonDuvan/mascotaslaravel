@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/mascotas/pdf',[App\Http\Controllers\MascotaController::class, 'pdf'])->name('mascotas.pdf');
+
 Route::get('/', function () {
     return view('welcome');
 });

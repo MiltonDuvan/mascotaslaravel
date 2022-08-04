@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mascota;
 use Illuminate\Http\Request;
+use PDF;
 
 class MascotaController extends Controller
 {
@@ -18,6 +19,21 @@ class MascotaController extends Controller
         return view('mascota.index',compact('mascotasvar'));
     }
 
+
+
+    public function pdf()
+    {
+        
+        $mascotasvar=Mascota::Paginate();
+
+        $pdf =PDF::loadView('mascota.pdf',['mascotasvar'=>$mascotasvar]);
+        // return $pdf->stream(); con navegador
+
+        return $pdf->download('reporte__Mascotas.pdf');
+
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +43,7 @@ class MascotaController extends Controller
     {
         $mascotasvar=Mascota::all();
 
-        return view('mascota.create',compact('mascotasvar'));/* ,compact('TipoDocumento')) */
+        return view('mascota.create',compact('mascotasvar'));
     }
 
     /**
@@ -72,8 +88,9 @@ class MascotaController extends Controller
      */
     public function edit($id)
     {
-        $mascotavar = Mascota::findOrFail($id); 
+        $mascotavar = Mascota::find($id); 
         return view('mascota.edit',compact('mascotavar')); 
+        
     }
 
     /**

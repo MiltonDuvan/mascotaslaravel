@@ -20,10 +20,10 @@
             <input class="form-control my-3" placeholder="Nombre" type="text" name="nombre_mascota" id="nombre_mascota">
          
             <select class="form-control my-3" name="raza_mascota" id="raza_mascota" value="$id">
-                <option value=""selected>Seleccione raza</option>
+                <option selected>Seleccione raza</option>
                  @foreach ($mascotavar as $masco) 
                <option value="{{$masco->id}}">{{$masco->raza_mascota}}</option>
-               @endforeach
+               @endforeach       
             </select>
             <select class="form-control my-3" name="categoria_mascota" id="categoria" value="$id">
                 <option  value=""selected>Seleccione categria</option>
